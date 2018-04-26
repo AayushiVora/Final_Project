@@ -1,8 +1,8 @@
-# Trying intial commit
 import random
 
+
 def creategrid(position):
-    #We are creating the basic grid of the game by using this function.
+    # We are creating the basic grid of the game by using this function.
     print(' ' + position[13] + ' | ' + position[14] + ' | ' + position[15] + ' | ' + position[16])
     print('---------------')
     print(' ' + position[9] + ' | ' + position[10] + ' | ' + position[11] + ' | ' + position[12])
@@ -13,7 +13,7 @@ def creategrid(position):
 
 
 def Player1():
-    #This function returns the symbol choosed by Player 1
+    # This function returns the symbol choosed by Player 1
     symbol = ''
     while (symbol != 'X' and symbol != 'O' and symbol != 'T'):
         name1 = input('Player 1 please enter Your Name: ')
@@ -154,11 +154,11 @@ def chooseRandomMoveFromList(position, movesList):
 
 
 def choosecompturn(position, computersymbol, playersymbol1, playersymbol2):
-    #Selecting position for next move for computer
+    # Selecting position for next move for computer
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            #makeMove(copy, computersymbol, i)
+            # makeMove(copy, computersymbol, i)
             copy[i] = computersymbol
             if makepattern(copy, computersymbol):
                 return i
@@ -186,10 +186,12 @@ def choosecompturn(position, computersymbol, playersymbol1, playersymbol2):
 
     return chooseRandomMoveFromList(position, [2, 3, 5, 9, 8, 12, 14, 15])
 
+
 def playAgain():
     # True means the player wants to play the game again and false means the player wants to quit playing
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
+
 
 def is_position_available(position):
     # Checks weather all the coordinates in the grid are filled.
@@ -203,13 +205,13 @@ print(
     'Welcome to 4*4, a 3 Player Noughts and Crosses game.\nTo win the game, you have to place 3 X-s, O-s or 3 T-s in a row.')
 print('--------------------------------------------------------------')
 
-c1=0
-c2=0
-c3=0
+c1 = 0
+c2 = 0
+c3 = 0
 
 while True:
     for i in range(0, 1):
-    # Reset the position
+        # Reset the position
         theposition = [' '] * 17
         playersymbol1 = Player1()
         print('Player 1 choose the symbol', playersymbol1)
@@ -232,7 +234,7 @@ while True:
                 if makepattern(theposition, playersymbol1):
                     creategrid(theposition)
                     print('Congratulations Player 1, you won the game!')
-                    c1=c1+1
+                    c1 = c1 + 1
                     continue_playing = False
                 else:
                     if is_position_available(theposition):
@@ -247,7 +249,7 @@ while True:
                 if makepattern(theposition, playersymbol2):
                     creategrid(theposition)
                     print('Congratulations Player 2, you won the game!')
-                    c2=c2+1
+                    c2 = c2 + 1
                     continue_playing = False
                 else:
                     if is_position_available(theposition):
@@ -263,7 +265,7 @@ while True:
                 if makepattern(theposition, computersymbol):
                     creategrid(theposition)
                     print('We are sorry but our AI has won the game!!')
-                    c3=c3+1
+                    c3 = c3 + 1
                     continue_playing = False
                 else:
                     if is_position_available(theposition):
@@ -272,3 +274,249 @@ while True:
                         break
                     else:
                         turn1 = 'p1'
+
+            # --------------- if player 1 will play first, computer second and p2 third ----------------------------------
+            if turn1 == 'p1' and turn2 == 'computer' and turn3 == 'p2':
+                creategrid(theposition)
+                move = chooseplayerturn(theposition)
+                theposition[move] = playersymbol1
+                if makepattern(theposition, playersymbol1):
+                    creategrid(theposition)
+                    print('Congratulations Player 1, you won the game!')
+                    c1 = c1 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn2 = 'computer'
+                move = choosecompturn(theposition, computersymbol, playersymbol1, playersymbol2)
+                theposition[move] = computersymbol
+                print('The computer moved at position:', move)
+                if makepattern(theposition, computersymbol):
+                    creategrid(theposition)
+                    print('We are sorry but our AI has won the game!!')
+                    c3 = c3 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn3 = 'p2'
+                creategrid(theposition)
+                move = chooseplayerturn(theposition)
+                theposition[move] = playersymbol2
+                if makepattern(theposition, playersymbol2):
+                    creategrid(theposition)
+                    print('Congratulations Player 2, you won the game!')
+                    c2 = c2 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn1 = 'p1'
+            # --------------- if player 2 will play first, p1 second and computer third ----------------------------------
+            if turn1 == 'p2' and turn2 == 'p1' and turn3 == 'computer':
+                creategrid(theposition)
+                move = chooseplayerturn(theposition)
+                theposition[move] = playersymbol2
+                if makepattern(theposition, playersymbol2):
+                    creategrid(theposition)
+                    print('Congratulations Player 2, you won the game!')
+                    c2 = c2 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn2 = 'p1'
+                creategrid(theposition)
+                move = chooseplayerturn(theposition)
+                theposition[move] = playersymbol1
+                if makepattern(theposition, playersymbol1):
+                    creategrid(theposition)
+                    print('Congratulations Player 1, you won the game!')
+                    c1 = c1 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn3 = 'computer'
+                move = choosecompturn(theposition, computersymbol, playersymbol1, playersymbol2)
+                theposition[move] = computersymbol
+                print('The computer moved at position:', move)
+                if makepattern(theposition, computersymbol):
+                    creategrid(theposition)
+                    print('We are sorry but our AI has won the game!!')
+                    c3 = c3 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn1 = 'p2'
+
+            # --------------- if player 2 will play first, computer second and p1 third ----------------------------------
+            if turn1 == 'p2' and turn2 == 'computer' and turn3 == 'p1':
+                creategrid(theposition)
+                move = chooseplayerturn(theposition)
+                theposition[move] = playersymbol2
+                if makepattern(theposition, playersymbol2):
+                    creategrid(theposition)
+                    print('Congratulations Player 2, you won the game!')
+                    c2 = c2 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn2 = 'computer'
+                move = choosecompturn(theposition, computersymbol, playersymbol1, playersymbol2)
+                theposition[move] = computersymbol
+                print('The computer moved at position:', theposition)
+                if makepattern(theposition, computersymbol):
+                    creategrid(theposition)
+                    print('We are sorry but our AI has won the game!!')
+                    c3 = c3 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn3 = 'p1'
+                if turn3 == 'p1':
+                    creategrid(theposition)
+                    move = chooseplayerturn(theposition)
+                    theposition[move] = playersymbol1
+                    if makepattern(theposition, playersymbol1):
+                        creategrid(theposition)
+                        print('Congratulations Player 1, you won the game!')
+                        c1 = c1 + 1
+                        continue_playing = False
+                    else:
+                        if is_position_available(theposition):
+                            creategrid(theposition)
+                            print('The game resulted in a tie.')
+                            break
+                        else:
+                            turn1 = 'p2'
+
+            # --------------- if computer will play first, p2 second and p1 third ----------------------------------
+            if turn1 == 'computer' and turn2 == 'p2' and turn3 == 'p1':
+                move = choosecompturn(theposition, computersymbol, playersymbol1, playersymbol2)
+                print("Computer move is turn1 == 'computer' and turn2 == 'p2' and turn3 == p1", move)
+                print('The computer moved at position:', move)
+                theposition[move] = computersymbol
+                if makepattern(theposition, computersymbol):
+                    creategrid(theposition)
+                    print('We are sorry but our AI has won the game!!')
+                    c3 = c3 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn2 = 'p2'
+                creategrid(theposition)
+                move = chooseplayerturn(theposition)
+                theposition[move] = playersymbol2
+                if makepattern(theposition, playersymbol2):
+                    creategrid(theposition)
+                    print('Congratulations Player 2, you won the game!')
+                    c2 = c2 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn3 = 'p1'
+                    creategrid(theposition)
+                    move = chooseplayerturn(theposition)
+                    theposition[move] = playersymbol1
+                    if makepattern(theposition, playersymbol1):
+                        creategrid(theposition)
+                        print('Congratulations Player 1, you won the game!')
+                        c1 = c1 + 1
+                        continue_playing = False
+                    else:
+                        if is_position_available(theposition):
+                            creategrid(theposition)
+                            print('The game resulted in a tie.')
+                            break
+                        else:
+                            turn1 = 'computer'
+            # --------------- if computer will play first, p1 second and p2 third ----------------------------------
+            if turn1 == 'computer' and turn2 == 'p1' and turn3 == 'p2':
+                move = choosecompturn(theposition, computersymbol, playersymbol1, playersymbol2)
+                print("Computer move is turn1 == 'computer' and turn2 == 'p1' and turn3 == p2", move)
+                print('The computer moved at position:', move)
+                theposition[move] = computersymbol
+                if makepattern(theposition, computersymbol):
+                    creategrid(theposition)
+                    print('We are sorry but our AI has won the game!!')
+                    c3 = c3 + 1
+                    continue_playing = False
+                else:
+                    if is_position_available(theposition):
+                        creategrid(theposition)
+                        print('The game resulted in a tie.')
+                        break
+                    else:
+                        turn2 = 'p1'
+                    creategrid(theposition)
+                    move = chooseplayerturn(theposition)
+                    theposition[move] = playersymbol1
+                    if makepattern(theposition, playersymbol1):
+                        creategrid(theposition)
+                        print('Congratulations Player 1, you won the game!')
+                        c1 = c1 + 1
+                        continue_playing = False
+                    else:
+                        if is_position_available(theposition):
+                            creategrid(theposition)
+                            print('The game resulted in a tie.')
+                            break
+                        else:
+                            turn3 = 'p2'
+                    creategrid(theposition)
+                    move = chooseplayerturn(theposition)
+                    theposition[move] = playersymbol2
+                    if makepattern(theposition, playersymbol2):
+                        creategrid(theposition)
+                        print('Congratulations Player 2, you won the game!')
+                        c2 = c2 + 1
+                        continue_playing = False
+                    else:
+                        if is_position_available(theposition):
+                            creategrid(theposition)
+                            print('The game resulted in a tie.')
+                            break
+                        else:
+                            turn1 = 'computer'
+
+    print('Percentage of winning for Player 1', (c1 / 1) * 100)
+    print('Percentage of winning for Player 2', (c2 / 1) * 100)
+    print('Percentage of winning for Player 3', (c3 / 1) * 100)
+
