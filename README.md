@@ -21,10 +21,33 @@ O
 T
 
 # Monte Carlo Simulation Scenario & Purpose:
-(be sure to read the instructions given in course Moodle)
+The purpose of this project is to determine the probability of winning a multiplayer or a 2 player and an AI player game of Noughts and Crosses. We will be using basic monte carlo simulation to derive statistical analysis of this simple yet complicated game. Our main purpose of using Monte Carlo Simulation is to determine the most promising next move to increase the probability of winning the game.
+
 
 ## Simulation's variables of uncertainty
-List and describe your simulation's variables of uncertainty (where you're using pseudo-random number generation). For each such variable, how did you decide the range and probability distribution to use?  Do you think it's a good representation of reality?
+We are trying to simulate a Multiplayer tournament of Noughts and Crosses game. Using Monte-Carlo simulation techniques, we plan to derive the statistics of this simple game scenario.
+We are using Randomness in these cases:
+Order in which players will be allowed to play the game.
+The move of each human player or AI can or cannot be random .
+Tie of all both players and an AI
+Making the order selection random, we have tried to minimise any bias with respect to the general human assumption that the player who goes first has more chances of winning. We definitely think that making this scenario random, we have made a very good representation of reality.
+If a player is playing the game using some strategy then his moves won’t be random in any case but if a player is just a beginner or has not planned any strategy then his moves are also considered as random moves. 
+# Strategies to consider implementing for AI:
+Order in which AI will play is random
+AI will first check if the position is empty and then strategize in this way:
+First the algorithm checks if the AI can win. If yes then make the movement accordingly.
+If there is no such position of winning, the algorithm checks for one step move if any of the player can win. If yes, then the algorithm will move the AI symbol accordingly to block winning of that player. 
+If both the conditions are not satisfied, algorithm will move AI in one of the centre positions.
+Else, it will move the symbol to one of the 4 corners.
+Else, it will move the symbol to any of the remaining positions.
+# Strategies to consider for players during this game:
+1. A player with same knowledge as current AI, and using the same strategy as that of AI. 
+Hypothesis:
+Should reduce number of ties, but might not improve the winning advantage.
+2. Player 2 is adapting with the Player 1’s strategy and his choice history. 
+Hypothesis:
+Player 2 might have significant advantage over non AI player(Player1). Vice versa can also be applied.
+
 
 ## Hypothesis or hypotheses before running the simulation:
 
