@@ -7,9 +7,18 @@ DELETE these lines from TEMPLATE up.
 TEMPLATE for your report:
 
 # Title: 
+# Noughts and Crosses
 
 ## Team Member(s):
-(Note: Don't put your email addresses here (which is public).  If a student wants their NAME hidden as well, due to optional FERPA regulations, they can be listed purely by their GitHub ID).
+Aayushi Vora
+Saloni Agrawal
+
+# Introduction
+Everyone is familiar with the game Noughts and Crosses. We have created a level one Artificial Intelligence Algorithm using Monte Carlo tree search algorithm method to determine the best possible moves which could lead to a possible victory. The main focus of our project is performing Heuristic Search using Monte Carlos tree search methodology. We’ll be giving a new variation to this game, where the grid will be of 4*4 or 5*5, depending upon the player’s choice. However, the number of players will be 3 and the first player to get 3 in a row will win the game.
+The symbols which we used for this game are:
+X
+O
+T
 
 # Monte Carlo Simulation Scenario & Purpose:
 (be sure to read the instructions given in course Moodle)
@@ -23,5 +32,5 @@ List and describe your simulation's variables of uncertainty (where you're using
 
 ## Instructions on how to use the program:
 
-## All Sources Used:
+# Strategies to consider for players during this game:
 
