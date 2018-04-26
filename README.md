@@ -89,8 +89,21 @@ III. Diagonal sequences
 5.The winning probability is independent of the order in which the players go. 
 
 ## Analytical Summary of your findings: (e.g. Did you adjust the scenario based on previous simulation outcomes?  What are the management decisions one could make from your simulation's output, etc.)
+Based on the above mentioned features, we have calculated the winning probabilities for each player when the game is played n number of times. We have displayed the statistics of these winning probabilities.
+However, we will further simulate the game for higher n, so as to determine the winning scenario more accurately and closely.
 
 ## Instructions on how to use the program:
+1. Run the Noughts and Crosses.py file. 
+2. Select the type of game you want to play : 4*4 grid or 5*5. (You will have 2 human and 1 AI player. One needs to have a sequence of 3 to win)
+3. Player 1 will enter his/her name.
+4. Player 1 will select one of the three available symbols X, T, O.
+5. Player 2 will enter his/her name.
+6. Player 2 will select one of the two available symbols.
+7. The order in which the players will play the game will be displayed. This is random. Then go ahead and play the game.
+8. The game will be played for n number of times. The probability of each player winning will be computed and displayed.
+
 
 # Strategies to consider for players during this game:
+https://play.google.com/store/apps/details?id=net.gameswithgravitas.tictactoe
+https://int8.io/monte-carlo-tree-search-beginners-guide/
 
