@@ -1,19 +1,14 @@
-Create a FORK of this repository to store your code, data, and documentation for the final project. Detailed instructions for this assignment are in the course Moodle site.  The reason I'm asking you to fork this empty repository instead of creating a stand-alone repository is that it will be much easier for me and all students in the course to find all of our projects for code review and for grading. You can even get code review from students in the other section of IS590PR this way.
+**Title**: 
 
-Even though your fork of this repository shall be public, you'll still need to explicitly add any students on your team as Collaborators in the Settings. That way you can grant them write privileges.
-
-DELETE these lines from TEMPLATE up.
-
-TEMPLATE for your report:
-
-
-**Title**: Noughts and Crosses
+Noughts and Crosses
 
 **Team Member(s):**
+
 Aayushi Vora
 Saloni Agrawal
 
 **Introduction:**
+
 Everyone is familiar with the game Noughts and Crosses. We have created a level one Artificial Intelligence Algorithm using Monte Carlo tree search algorithm method to determine the best possible moves which could lead to a possible victory. The main focus of our project is performing Heuristic Search using Monte Carlos tree search methodology. We’ll be giving a new variation to this game, where the grid will be of 4*4 or 5*5, depending upon the player’s choice. However, the number of players will be 3 and the first player to get 3 in a row will win the game.
 The symbols which we used for this game are:
 X
@@ -21,9 +16,11 @@ O
 T
 
 ****Monte Carlo Simulation Scenario & Purpose:****
+
 The purpose of this project is to determine the probability of winning a multiplayer or a 2 player and an AI player game of Noughts and Crosses. We will be using basic monte carlo simulation to derive statistical analysis of this simple yet complicated game. Our main purpose of using Monte Carlo Simulation is to determine the most promising next move to increase the probability of winning the game.
 
 ****Simulation's variables of uncertainty****
+
 We are trying to simulate a Multiplayer tournament of Noughts and Crosses game. Using Monte-Carlo simulation techniques, we plan to derive the statistics of this simple game scenario.
 We are using Randomness in these cases:
 1. Order in which players will be allowed to play the game.
@@ -44,6 +41,7 @@ If a player is playing the game using some strategy then his moves won’t be ra
 - Else, it will move the symbol to any of the remaining positions.
 
 ****Strategies to consider for players during this game:****
+
 1. A player with same knowledge as current AI, and using the same strategy as that of AI. 
 Hypothesis: Should reduce number of ties, but might not improve the winning advantage.
 2. Player 2 is adapting with the Player 1’s strategy and his choice history. 
@@ -52,7 +50,9 @@ Hypothesis: Player 2 might have significant advantage over non AI player(Player1
 ****Winning sequences****
 
 There will be in total 24 sequences in which a player can win the game. The sequences are described as follows-
-I. Horizontal sequences
+
+Horizontal sequences
+
 - 1,2,3
 - 2,3,4
 - 5,6,7
@@ -61,7 +61,9 @@ I. Horizontal sequences
 - 10,11,12
 - 13,14,15
 - 14,15,16
-II. Vertical sequences
+
+Vertical sequences
+
 - 1,5,9
 - 5,9,13
 - 2,6,10
@@ -71,7 +73,8 @@ II. Vertical sequences
 - 4,8,12
 - 8,12,16
 
-III. Diagonal sequences
+Diagonal sequences
+
 - 2,7,12
 - 1,6,11
 - 6,11,16
