@@ -27,19 +27,21 @@ The purpose of this project is to determine the probability of winning a multipl
 ## Simulation's variables of uncertainty
 We are trying to simulate a Multiplayer tournament of Noughts and Crosses game. Using Monte-Carlo simulation techniques, we plan to derive the statistics of this simple game scenario.
 We are using Randomness in these cases:
-Order in which players will be allowed to play the game.
-The move of each human player or AI can or cannot be random .
-Tie of all both players and an AI
+1.Order in which players will be allowed to play the game.
+2.The move of each human player or AI can or cannot be random .
+3.Tie of all both players and an AI
 Making the order selection random, we have tried to minimise any bias with respect to the general human assumption that the player who goes first has more chances of winning. We definitely think that making this scenario random, we have made a very good representation of reality.
 If a player is playing the game using some strategy then his moves won’t be random in any case but if a player is just a beginner or has not planned any strategy then his moves are also considered as random moves. 
+
 # Strategies to consider implementing for AI:
-Order in which AI will play is random
-AI will first check if the position is empty and then strategize in this way:
-First the algorithm checks if the AI can win. If yes then make the movement accordingly.
-If there is no such position of winning, the algorithm checks for one step move if any of the player can win. If yes, then the algorithm will move the AI symbol accordingly to block winning of that player. 
-If both the conditions are not satisfied, algorithm will move AI in one of the centre positions.
-Else, it will move the symbol to one of the 4 corners.
-Else, it will move the symbol to any of the remaining positions.
+1.Order in which AI will play is random
+2.AI will first check if the position is empty and then strategize in this way:
+    a.First the algorithm checks if the AI can win. If yes then make the movement accordingly.
+    b.If there is no such position of winning, the algorithm checks for one step move if any of the player can win. If yes, then the algorithm will move the AI symbol accordingly to block winning of that player. 
+    c.If both the conditions are not satisfied, algorithm will move AI in one of the centre positions.
+    d.Else, it will move the symbol to one of the 4 corners.
+    e.Else, it will move the symbol to any of the remaining positions.
+
 # Strategies to consider for players during this game:
 1. A player with same knowledge as current AI, and using the same strategy as that of AI. 
 Hypothesis:
@@ -48,8 +50,43 @@ Should reduce number of ties, but might not improve the winning advantage.
 Hypothesis:
 Player 2 might have significant advantage over non AI player(Player1). Vice versa can also be applied.
 
+## Winning Sequences
+There will be in total 24 sequences in which a player can win the game. The sequences are described as follows-
+I. Horizontal sequences
+1,2,3
+2,3,4
+5,6,7
+6,7,8
+9,10,11
+10,11,12
+13,14,15
+14,15,16
+II. Vertical sequences
+1,5,9
+5,9,13
+2,6,10
+6,10,14
+3,7,11
+7,11,15
+4,8,12
+8,12,16
+
+III. Diagonal sequences
+2,7,12
+1,6,11
+6,11,16
+5,10,15
+4,7,10
+3,6,9
+8,11,14
+7,10,13
 
 ## Hypothesis or hypotheses before running the simulation:
+1.Both the players and AI player are independent of each other.
+2.The order in which players will be allowed to play is random and independent of each other.
+3.The moves of each player during the game, can or cannot be independent of  each other.
+4.After playing the game for n number of times, the most promising moves for winning will be determined.
+5.The winning probability is independent of the order in which the players go. 
 
 ## Analytical Summary of your findings: (e.g. Did you adjust the scenario based on previous simulation outcomes?  What are the management decisions one could make from your simulation's output, etc.)
 
