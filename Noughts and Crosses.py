@@ -72,45 +72,21 @@ def sequenceofplayers():
     elif random.randrange(0, 5) == 5:
         return ['p2', 'p1', 'computer']
 
-def Player1():
-    # This function returns the symbol choosed by Player 1
-    symbol = ''
-    while (symbol != 'X' and symbol != 'O' and symbol != 'T'):
-        name1 = input('Player 1 please enter Your Name: ')
-        print('Hello ', name1, 'please choose the symbol type you want to be \n Choices are: X, O, T')
-        symbol = input().upper()
-    if symbol == 'X':
-        return ('X')
-    elif symbol == 'O':
-        return ('O')
-    elif symbol == 'T':
-        return ('T')
+def select_sym_sequence():
+    # This function is used to select the order of the players randomly.
+    if random.randrange(0, 5) == 0:
+        return ['X', 'T', 'O']
+    elif random.randrange(0, 5) == 1:
+        return ['X', 'O', 'T']
+    elif random.randrange(0, 5) == 2:
+        return ['T', 'X', 'O']
+    elif random.randrange(0, 5) == 3:
+        return ['T', 'O', 'X']
+    elif random.randrange(0, 5) == 4:
+        return ['O', 'X', 'T']
+    elif random.randrange(0, 5) == 5:
+        return ['O', 'T', 'X']
 
-def Player2(p):
-    # This function returns the symbol choosed by Player 2
-    symbol1 = ''
-    while (symbol1 != 'X' and symbol1 != 'O' and symbol1 != 'T'):
-        name2 = input('Player 2 please enter Your Name: ')
-        print('Hello ', name2, 'please choose the symbol type you want to be. \nPlease do not enter Player 1s choice')
-        symbol1 = input().upper()
-    if symbol1 == p:
-        print('We are sorry but that symbol is taken')
-    else:
-        if p == 'X':
-            if symbol1 == 'O':
-                return ['O', 'T']
-            else:
-                return ['T', 'O']
-        elif p == 'O':
-            if symbol1 == 'X':
-                return ['X', 'T']
-            else:
-                return ['T', 'X']
-        else:
-            if symbol1 == 'O':
-                return ['O', 'X']
-            else:
-                return ['X', 'O']
 
 def newposition(position):
     # Make a duplicate of the position list and return it the duplicate.
@@ -251,12 +227,14 @@ while True:
     for i in range(0, 1):
         # Reset the position
         theposition = [' '] * 17
-        playersymbol1 = Player1()
+        #playersymbol1 = Player1()
+        turn1, turn2, turn3 = sequenceofplayers()
+        playersymbol1, playersymbol2, computersymbol = select_sym_sequence()
         print('Player 1 choose the symbol', playersymbol1)
-        playersymbol2, computersymbol = Player2(playersymbol1)
+        #playersymbol2, computersymbol = Player2(playersymbol1)
         print('Player 2 choose the symbol', playersymbol2)
         print('So, the final choices are Player 1 is:', playersymbol1, '\nPlayer 2 is:', playersymbol2, '\nComputer is',computersymbol)
-        turn1, turn2, turn3 = sequenceofplayers()
+
         print('The ' + turn1 + ' will go first.')
         print('The ' + turn2 + ' will go second.')
         print('The ' + turn3 + ' will go third.')
