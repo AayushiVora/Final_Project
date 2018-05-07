@@ -14,9 +14,6 @@ The symbols which we used for this game are:
 X
 O
 T
-This is how 4 by 4 grid looks.
-
-![](Final_Project/fourbyfour.PNG)
 
 ****Monte Carlo Simulation Scenario & Purpose:****
 
