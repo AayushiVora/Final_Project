@@ -1,17 +1,18 @@
 import random
-# def creategrid(position):
-#
-#     """This function will create the grid for the game
-#     :param position: Any number from 1-16.
-#     :return: the grid of 4*4 on which the game is played
-#     """
-#     print(' ' + position[13] + ' | ' + position[14] + ' | ' + position[15] + ' | ' + position[16])
-#     print('---------------')
-#     print(' ' + position[9] + ' | ' + position[10] + ' | ' + position[11] + ' | ' + position[12])
-#     print('---------------')
-#     print(' ' + position[5] + ' | ' + position[6] + ' | ' + position[7] + ' | ' + position[8])
-#     print('---------------')
-#     print(' ' + position[1] + ' | ' + position[2] + ' | ' + position[3] + ' | ' + position[4])
+
+
+def creategrid(position):
+    # We are creating the basic grid of the game by using this function.
+    print(' ' + position[21] + ' | ' + position[22] + ' | ' + position[23] + ' | ' + position[24]+ ' | ' + position[25])
+    print('--------------------')
+    print(' ' + position[16] + ' | ' + position[17] + ' | ' + position[18] + ' | ' + position[19]+ ' | ' + position[20])
+    print('--------------------')
+    print(' ' + position[11] + ' | ' + position[12] + ' | ' + position[13] + ' | ' + position[14]+ ' | ' + position[15])
+    print('--------------------')
+    print(' ' + position[6] + ' | ' + position[7] + ' | ' + position[8] + ' | ' + position[9]+ ' | ' + position[10])
+    print('--------------------')
+    print(' ' + position[1] + ' | ' + position[2] + ' | ' + position[3] + ' | ' + position[4]+ ' | ' + position[5])
+
 
 def makepattern(coordinate,character):
 
@@ -19,8 +20,8 @@ def makepattern(coordinate,character):
     :param coordinate: Grid for the game.
     :param character: The symbol for which it checks the winning condition i.e., O,X or T.
     :return: True if there's a winning combination for the symbol.
-    >>> test_list = [' '] * 17
-    >>> test_list[12] = test_list[8] = test_list[4] = 'X'
+    >>> test_list = [' '] * 26
+    >>> test_list[1] = test_list[2] = test_list[3] = 'X'
     >>> makepattern(test_list,'T')
     False
     >>> makepattern(test_list,'X')
@@ -29,9 +30,10 @@ def makepattern(coordinate,character):
     False
     """
 
-    WIN = [[ 14,15,16 ],[13,14,15 ],[ 10,11,12 ],[ 9,10,11 ],[ 6,7,8 ],[ 5,6,7 ],[ 2,3,4] ,[1,2,3 ],[13,9,5]
-    ,[ 9,5,1 ],[14,10,6 ],[10,6,2],[15,11,7],[11,7,3],
-    [16,12,8 ],[12,8,4],[15,10,5],[16,11,6],[12,7,2 ],[13,10,7 ],[ 9,6,3],[14,11,8],[11,6,1],[10,7,4]]
+    WIN = [[1, 2, 3],[2, 3, 4],[3, 4, 5],[6, 7, 8],[7, 8, 9],[8, 9, 10],[11, 12, 13],[12, 13, 14],[13, 14, 15],[16, 17, 18],[17, 18, 19],[18, 19, 20],
+        [21, 22, 23],[22, 23, 24],[23, 24, 25],[1, 6, 11],[6, 11, 16],[11, 16, 21],[2, 7, 12],[7, 12, 17],[12, 17, 22],[3, 8, 13],[8, 13, 18],[13, 18, 23],
+        [4, 9, 14],[9, 14, 19],[14, 19, 24],[5, 10, 15],[10, 15, 20],[15, 20, 25],[1, 7, 13],[7, 13, 19],[13, 19, 25],[2, 8, 14],[8, 14, 20],[3, 9, 15],
+        [6, 12, 18],[12, 18, 24],[11, 17, 23],[3, 7, 11],[4, 8, 12],[8, 12, 16],[5, 9, 13],[9, 13, 17],[13, 17, 21],[10, 14, 18],[14, 18, 22],[15, 19, 23]]
     k=0
     for i in WIN:
         if coordinate[i[0]] == character and coordinate[i[1]] == character and coordinate[i[2]] == character:
@@ -129,7 +131,7 @@ def check_against_players(position,symbol):
     :return: It will return the position for winning possibility of competitor.
     """
 
-    for i in range(1, 17):
+    for i in range(1, 26):
         copy = newposition(position)
         if position_avail(copy, i):
             copy[i] = symbol
@@ -144,7 +146,7 @@ def check_own_winning(position,symbol):
     :return: It will return if there's a winning possibility of itself.
     """
 
-    for i in range(1, 17):
+    for i in range(1, 26):
         copy = newposition(position)
         if position_avail(copy, i):
             copy[i] = symbol
@@ -164,13 +166,13 @@ def choose_smartestAI_turn(position, smartestAI_symbol, smartAI_symbol, dumbAI_s
     check_own_winning(position,smartestAI_symbol)
     check_against_players(position,smartAI_symbol)
     check_against_players(position,dumbAI_symbol)
-    m_centre = chooseRandomMoveFromList(position, [6, 7, 10, 11])
+    m_centre = chooseRandomMoveFromList(position, [7,8,9,12,13,14,17,18,19])
     if m_centre != None:
         return m_centre
-    move = chooseRandomMoveFromList(position, [1, 4, 13, 16])
+    move = chooseRandomMoveFromList(position, [1,5,21,25])
     if move != None:
         return move
-    return chooseRandomMoveFromList(position, [2, 3, 5, 9, 8, 12, 14, 15])
+    return chooseRandomMoveFromList(position, [2, 3, 4,6,10,11,15,10,20,22,23,24])
 
 
 def is_position_available(position):
@@ -178,12 +180,12 @@ def is_position_available(position):
     """This function checks weather all the coordinates in the grid are filled.
     :param position: It is the game grid.
     :return: It returns True if the grid is filled
-    >>> test_list = [' '] * 17
-    >>> test_list[12] = test_list[8] = test_list[4] = 'X'
+    >>> test_list = [' '] * 26
+    >>> test_list[1] = test_list[2] = test_list[3] = 'X'
     >>> is_position_available(test_list)
     False
     """
-    for i in range(1, 17):
+    for i in range(1, 26):
         if position_avail(position, i):
             return False
     return True
@@ -200,15 +202,15 @@ def smart_AI(position, smartestAI_symbol, smartAI_symbol):
 
     check_own_winning(position,smartAI_symbol)
     check_against_players(position,smartestAI_symbol)
-    m_centre = chooseRandomMoveFromList(position, [6, 7, 10, 11])
+    m_centre = chooseRandomMoveFromList(position, [7,8,9,12,13,14,17,18,19])
     if m_centre != None:
         return m_centre
 
-    move = chooseRandomMoveFromList(position, [1, 4, 13, 16])
+    move = chooseRandomMoveFromList(position, [1,5,21,25])
     if move != None:
         return move
 
-    return chooseRandomMoveFromList(position, [2, 3, 5, 9, 8, 12, 14, 15])
+    return chooseRandomMoveFromList(position, [2, 3, 4,6,10,11,15,10,20,22,23,24])
 
 
 def smartAI_play():
@@ -247,13 +249,13 @@ def dumb_AI(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
     check_against_players(position,smartestAI_symbol)
     check_against_players(position,smartAI_symbol)
     check_own_winning(position,dumbAI_symbol)
-    move = chooseRandomMoveFromList(position, [1, 4, 13, 16])
+    move = chooseRandomMoveFromList(position, [1,5,21,25])
     if move != None:
         return move
-    m_centre = chooseRandomMoveFromList(position, [6, 7, 10, 11])
+    m_centre = chooseRandomMoveFromList(position, [7,8,9,12,13,14,17,18,19])
     if m_centre != None:
         return m_centre
-    return chooseRandomMoveFromList(position, [2, 3, 5, 9, 8, 12, 14, 15])
+    return chooseRandomMoveFromList(position, [2, 3, 4,6,10,11,15,10,20,22,23,24])
 
 
 def dumbAI_play():
@@ -289,7 +291,7 @@ def smartestAI_play():
     theposition[move] = smartestAI_symbol
     if makepattern(theposition, smartestAI_symbol):
         #creategrid(theposition)
-        print('We are sorry but smartest AI has won the game!!')
+        print('We are sorry but our AI has won the game!!')
         print('--------------------------------------------------------------')
         return 1
     else:
@@ -304,7 +306,7 @@ def smartestAI_play():
 
 if __name__ == '__main__':
 
-    print('Welcome to a 4*4, a 3 Player Noughts and Crosses game.\n We have three AI in the game with some different strategy.\n To win the game, they have to place 3 X-s, O-s or 3 T-s in a row.')
+    print('Welcome to a 5*5, a 3 Player Noughts and Crosses game.\n We have three AI in the game with some different strategy.\n To win the game, they have to place 3 X-s, O-s or 3 T-s in a row.')
     print('--------------------------------------------------------------')
     c1 = c2 = c3 = tie = 0
     count_smartAI = count_dumbAI = count_smartestAI = 0
@@ -320,7 +322,7 @@ if __name__ == '__main__':
     for i in range(0, ask_user):
 
         # Reset the position
-        theposition = [' '] * 17
+        theposition = [' '] * 26
         turn = sequenceofplayers()
         turn1 = turn[0]
         turn2 = turn[1]
@@ -368,7 +370,7 @@ if __name__ == '__main__':
                     first_smartestAI=first_smartestAI+1
                     break
                 elif check3 == 3:
-                    turn1 == "smartAI"
+                    turn3 == "smartestAI"
                 else:
                     break
             #if smartAI will play first, smartestAI is second and dumbAI is third
@@ -422,7 +424,7 @@ if __name__ == '__main__':
                     third_smartAI=third_smartAI+1
                     break
                 elif check == 3:
-                    turn3 == "smartestAI"
+                    turn1 == "dumbAI"
                 else:
                     break
                 check3 = smartestAI_play()
@@ -432,7 +434,7 @@ if __name__ == '__main__':
                     third_smartestAI=third_smartestAI+1
                     break
                 elif check3 == 3:
-                    turn1 == "dumbAI"
+                    turn3 == "dumbAI"
                 else:
                     break
             #if dumbAI will play first, smartestAI is second and smartAI is last
