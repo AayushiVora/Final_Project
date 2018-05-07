@@ -160,7 +160,6 @@ def choose_smartestAI_turn(position, smartestAI_symbol, smartAI_symbol, dumbAI_s
     :param dumbAI_symbol: It is the dumb AI's symbol.
     :return: It will return the next move for the smartest AI.
     """
-
     check_own_winning(position,smartestAI_symbol)
     check_against_players(position,smartAI_symbol)
     check_against_players(position,dumbAI_symbol)
