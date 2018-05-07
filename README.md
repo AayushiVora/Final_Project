@@ -118,8 +118,8 @@ However,after simulating the game n number of times, where n depends on the user
 After the peer reviews,  we  refined our hypothesis as "The winning probability is independent of the order in which the players go". To test our hypothesis we applied Monte Carlo Simulation in this game. We ran our simulation n number of times(n=1000 in our case. However, once can input this value of n), and obsererved the winning possibilities of each player under each play-order combination of players is different. Hence, we came to a conclusion that winning the game is independent of the order in which you play. 
 
 ****Note***: 'play-order combination of players' means the combinations of order in which players will play. For instance, 
-Combination 1: smartAI, smartestAI, dumbAI
-Combination2: dumbAI, smartestAI, smartAI 
+- Combination 1: smartAI, smartestAI, dumbAI
+- Combination2: dumbAI, smartestAI, smartAI 
 and so on.*
 
 
