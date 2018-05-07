@@ -104,7 +104,7 @@ Diagonal sequences
 **Analytical Summary of your findings: (e.g. Did you adjust the scenario based on previous simulation outcomes? What are the management decisions one could make from your simulation's output, etc.)**
 
 Based on the above mentioned features, we have calculated the winning probabilities for each player and the probabilities of tie when the game is played n number of times. We have displayed the statistics of these winning probabilities.
-However,after simulating the game n number of times, we reached to the conclusion that, no matter the order in which players are playing the game,  the probability of winning is only dependent on the alogirthm a player is using, irrespective of it's turn in the game. This proves that our hypothesis was correct which we made during the start of the game.
+However,after simulating the game n number of times, where n depends on the user, we reached to the conclusion that, no matter the order in which players are playing the game,  the probability of winning is only dependent on the alogirthm a player is using, irrespective of it's turn in the game. This proves that our hypothesis was correct which we made during the start of the game.
 
 ****Instructions on how to use the program:****
 
@@ -113,6 +113,16 @@ However,after simulating the game n number of times, we reached to the conclusio
 3. Enter the number of times you want to simulate the game.
 4. The output file will show the order in which each player is going in the game, the symbols assigned to each of them, who won the game or was it a tie.
 5. The end output holds the statistical analysis of the game which prints the winning percentage of each AI player , percentage of the games which resulted in tie, number of times a particular player went 1 in the game. 
+
+**Conclusions**
+After the peer reviews,  we  refined our hypothesis as "The winning probability is independent of the order in which the players go". To test our hypothesis we applied Monte Carlo Simulation in this game. We ran our simulation n number of times(n=1000 in our case. However, once can input this value of n), and obsererved the winning possibilities of each player under each play-order combination of players is different. Hence, we came to a conclusion that winning the game is independent of the order in which you play. 
+
+****Note***: 'play-order combination of players' means the combinations of order in which players will play. For instance, 
+Combination 1: smartAI, smartestAI, dumbAI
+Combination2: dumbAI, smartestAI, smartAI 
+and so on.*
+
+
 
 ****All Sources Used:****
 
