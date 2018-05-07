@@ -1,11 +1,9 @@
 import random
-import numpy as np
 # def creategrid(position):
 #
 #     """This function will create the grid for the game
 #     :param position: Any number from 1-16.
 #     :return: the grid of 4*4 on which the game is played
-#     # >>> weapon_to_beat('rock')
 #         |   |   |
 #     ---------------
 #         |   |   |
@@ -26,9 +24,8 @@ def makepattern(coordinate,character):
     # Given coordinate and the symbol used, this function returns True if the game is won by a particular player.
     # Coordinate means the particular position on the grid and and character means O,X or T.
     """Determine the game winner."""
-    WIN = [[ 14 ,  15 ,  16 ], [ 13 ,  14 ,  15 ] ,[ 10 ,  11 ,  12 ] ,[ 9 ,  10 ,  11 ] ,[ 6 ,  7 ,  8 ]  ,[ 5 ,  6 ,  7 ] ,
-    [ 2 ,  3 ,  4 ] ,[ 1 ,  2 ,  3 ], [ 13 ,  9 ,  5 ] ,[ 9 ,  5 ,  1 ],[ 14 ,  10 ,  6 ],[ 10 ,  6 ,  2 ],[ 15 ,  11 ,  7 ],[ 11 ,  7 ,  3 ],
-    [ 16 ,  12 ,  8 ],[ 12 ,  8 ,  4 ],[ 15 ,  10 ,  5 ],[ 16 ,  11 ,  6 ], [ 12 ,  7 ,  2 ], [ 13 ,  10 ,  7 ],[ 9 ,  6 ,  3 ], [ 14 ,  11 ,  8 ],[ 11 ,  6 ,  1 ],[ 10 ,  7 ,  4]]
+    WIN = [[ 14,15,16 ],[13,14,15 ],[ 10,11,12 ],[ 9,10,11 ],[ 6,7,8 ],[ 5,6,7 ],[ 2,3,4] ,[1,2,3 ],[13,9,5] ,[ 9,5,1 ],[14,10,6 ],[10,6,2],[15,11,7],[11,7,3],
+    [16,12,8 ],[12,8,4],[15,10,5],[16,11,6],[12,7,2 ],[13,10,7 ],[ 9,6,3],[14,11,8],[11,6,1],[10,7,4]]
     k=0
     for i in WIN:
         if coordinate[i[0]] == character and coordinate[i[1]] == character and coordinate[i[2]] == character:
@@ -48,17 +45,17 @@ def sequenceofplayers():
 
     c = random.randrange(0, 5)
     if c == 0:
-        return ['computer', 'p1', 'p2']
+        return ['smartestAI', 'smartAI', 'dumbAI']
     elif c == 1:
-        return ['computer', 'p2', 'p1']
+        return ['smartestAI', 'dumbAI', 'smartAI']
     elif c == 2:
-        return ['p1', 'computer', 'p2']
+        return ['smartAI', 'smartestAI', 'dumbAI']
     elif c == 3:
-        return ['p1', 'p2', 'computer']
+        return ['smartAI', 'dumbAI', 'smartestAI']
     elif c == 4:
-        return ['p2', 'computer', 'p1']
+        return ['dumbAI', 'smartestAI', 'smartAI']
     elif c == 5:
-        return ['p2', 'p1', 'computer']
+        return ['dumbAI', 'smartAI', 'smartestAI']
 
 
 def select_sym_sequence():
@@ -119,29 +116,29 @@ def chooseRandomMoveFromList(position, movesList):
         return None
 
 
-def choosecompturn(position, computersymbol, playersymbol1, playersymbol2):
+def choose_smartestAI_turn(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
 
     # Selecting position for next move for the smartest AI 1.
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            # makeMove(copy, computersymbol, i)
-            copy[i] = computersymbol
-            if makepattern(copy, computersymbol):
+            # makeMove(copy, smartestAI_symbol, i)
+            copy[i] = smartestAI_symbol
+            if makepattern(copy, smartestAI_symbol):
                 return i
 
     # Check if the other AI's could win on their next move, and block them.
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            copy[i] = playersymbol1
-            if makepattern(copy, playersymbol1):
+            copy[i] = smartAI_symbol
+            if makepattern(copy, smartAI_symbol):
                 return i
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            copy[i] = playersymbol2
-            if makepattern(copy, playersymbol2):
+            copy[i] = dumbAI_symbol
+            if makepattern(copy, dumbAI_symbol):
                 return i
 
     m_centre = chooseRandomMoveFromList(position, [6, 7, 10, 11])
@@ -166,21 +163,21 @@ def is_position_available(position):
     return True
 
 
-def smart_AI(position, computersymbol, playersymbol1, playersymbol2):
+def smart_AI(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
     # Selecting position for next move for its own
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            copy[i] = playersymbol1
-            if makepattern(copy, playersymbol1):
+            copy[i] = smartAI_symbol
+            if makepattern(copy, smartAI_symbol):
                 return i
 
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            # makeMove(copy, computersymbol, i)
-            copy[i] = computersymbol
-            if makepattern(copy, computersymbol):
+            # makeMove(copy, smartestAI_symbol, i)
+            copy[i] = smartestAI_symbol
+            if makepattern(copy, smartestAI_symbol):
                 return i
     m_centre = chooseRandomMoveFromList(position, [6, 7, 10, 11])
     if m_centre != None:
@@ -193,12 +190,12 @@ def smart_AI(position, computersymbol, playersymbol1, playersymbol2):
     return chooseRandomMoveFromList(position, [2, 3, 5, 9, 8, 12, 14, 15])
 
 
-def player1_play():
-    move = smart_AI(theposition, computersymbol, playersymbol1, playersymbol2)
-    theposition[move] = playersymbol1
-    if makepattern(theposition, playersymbol1):
+def smartAI_play():
+    move = smart_AI(theposition, smartestAI_symbol, smartAI_symbol, dumbAI_symbol)
+    theposition[move] = smartAI_symbol
+    if makepattern(theposition, smartAI_symbol):
         #creategrid(theposition)
-        print('We are sorry but our p1 has won the game!!')
+        print('We are sorry but our smartAI has won the game!!')
         print('--------------------------------------------------------------')
         return 1
     else:
@@ -211,25 +208,25 @@ def player1_play():
             return 3
 
 
-def dumb_AI(position, computersymbol, playersymbol1, playersymbol2):
-    # Check if the player could win on their next move, and block them.
+def dumb_AI(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
+    # Check if other player could win on their next move, and block them.
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            copy[i] = playersymbol1
-            if makepattern(copy, playersymbol1):
+            copy[i] = smartAI_symbol
+            if makepattern(copy, smartAI_symbol):
                 return i
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            copy[i] = computersymbol
-            if makepattern(copy, computersymbol):
+            copy[i] = smartestAI_symbol
+            if makepattern(copy, smartestAI_symbol):
                 return i
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            # makeMove(copy, computersymbol, i)
-            if makepattern(copy, playersymbol2):
+            # makeMove(copy, smartestAI_symbol, i)
+            if makepattern(copy, dumbAI_symbol):
                 return i
 
     move = chooseRandomMoveFromList(position, [1, 4, 13, 16])
@@ -241,12 +238,12 @@ def dumb_AI(position, computersymbol, playersymbol1, playersymbol2):
     return chooseRandomMoveFromList(position, [2, 3, 5, 9, 8, 12, 14, 15])
 
 
-def player2_play():
-    move = dumb_AI(theposition, computersymbol, playersymbol1, playersymbol2)
-    theposition[move] = playersymbol2
-    if makepattern(theposition, playersymbol2):
+def dumbAI_play():
+    move = dumb_AI(theposition, smartestAI_symbol, smartAI_symbol, dumbAI_symbol)
+    theposition[move] = dumbAI_symbol
+    if makepattern(theposition, dumbAI_symbol):
         #creategrid(theposition)
-        print('We are sorry but our p2 has won the game!!')
+        print('We are sorry but our dumbAI has won the game!!')
         print('--------------------------------------------------------------')
         return 1
     else:
@@ -256,13 +253,13 @@ def player2_play():
             print('--------------------------------------------------------------')
             return 2
         else:
-            # turn1 = 'p1'
+            # turn1 = 'smartAI'
             return 3
 
-def computer_play():
-    move = choosecompturn(theposition, computersymbol, playersymbol1, playersymbol2)
-    theposition[move] = computersymbol
-    if makepattern(theposition, computersymbol):
+def smartestAI_play():
+    move = choose_smartestAI_turn(theposition, smartestAI_symbol, smartAI_symbol, dumbAI_symbol)
+    theposition[move] = smartestAI_symbol
+    if makepattern(theposition, smartestAI_symbol):
         #creategrid(theposition)
         print('We are sorry but our AI has won the game!!')
         print('--------------------------------------------------------------')
@@ -274,15 +271,15 @@ def computer_play():
             print('--------------------------------------------------------------')
             return 2
         else:
-            # turn1 = 'p1'
+            # turn1 = 'smartAI'
             return 3
 
 print('Welcome to a 4*4, a 3 Player Noughts and Crosses game.\n We have three AI in the game with some different strategy.\n To win the game, they have to place 3 X-s, O-s or 3 T-s in a row.')
 print('--------------------------------------------------------------')
 c1 = c2 = c3 = tie = 0
-first_p1 = first_p2 = first_computer = 0
-second_p1 = second_p2 = second_computer = 0
-third_p1 = third_p2 = third_computer = 0
+first_smartAI = first_dumbAI = first_smartestAI = 0
+second_smartAI = second_dumbAI = second_smartestAI = 0
+third_smartAI = third_dumbAI = third_smartestAI = 0
 ask_user = input("How many times do you want to simulate the game?")
 ask_user = int(ask_user)
 print('--------------------------------------------------------------')
@@ -294,237 +291,225 @@ for i in range(0, ask_user):
     turn1 = turn[0]
     turn2 = turn[1]
     turn3 = turn[2]
-    if(turn1 == 'p1'):
-        first_p1 = first_p1+1
-    elif(turn1== 'p2'):
-        first_p2 = first_p2+1
+    if(turn1 == 'smartAI'):
+        first_smartAI = first_smartAI+1
+    elif(turn1== 'dumbAI'):
+        first_dumbAI = first_dumbAI+1
     else:
-        first_computer= first_computer+1
+        first_smartestAI= first_smartestAI+1
 
-    if(turn2 == 'p1'):
-        second_p1 = second_p1+1
-    elif(turn2== 'p2'):
-        second_p2 = second_p2+1
+    if(turn2 == 'smartAI'):
+        second_smartAI = second_smartAI+1
+    elif(turn2== 'dumbAI'):
+        second_dumbAI = second_dumbAI+1
     else:
-        second_computer= second_computer+1
+        second_smartestAI= second_smartestAI+1
 
-    if(turn3 == 'p1'):
-        third_p1 = third_p1+1
-    elif(turn3== 'p2'):
-        third_p2 = third_p2+1
+    if(turn3 == 'smartAI'):
+        third_smartAI = third_smartAI+1
+    elif(turn3== 'dumbAI'):
+        third_dumbAI = third_dumbAI+1
     else:
-        third_computer= third_computer+1
+        third_smartestAI= third_smartestAI+1
 
     print('Turn 1 is of: ', turn1,'Turn 2 is of:', turn2 ,'Turn 3 is of: ',turn3)
     playersymbol = select_sym_sequence()
-    playersymbol1 = playersymbol[0]
-    playersymbol2 = playersymbol[1]
-    computersymbol = playersymbol[2]
-    print('The symbols for each player are: Player 1 is:', playersymbol1, ',Player 2 is:', playersymbol2, ',Computer is:',computersymbol)
+    smartAI_symbol = playersymbol[0]
+    dumbAI_symbol = playersymbol[1]
+    smartestAI_symbol = playersymbol[2]
+    print('The symbols for each player are: smartAI is:', smartAI_symbol, ',dumbAI is:', dumbAI_symbol, ',smartestAI is:',smartestAI_symbol)
     continue_playing = True
     while continue_playing:
-        # -------------------------- if player 1 is first_p1, player 2 first_p2, computer first_computer -----------------------------------------------
-        if turn1 == 'p1' and turn2 == 'p2' and turn3 == 'computer':
-            check = player1_play()
+        # if smartAI is first, dumbAI is second,  and smartestAI is third
+        if turn1 == 'smartAI' and turn2 == 'dumbAI' and turn3 == 'smartestAI':
+            check = smartAI_play()
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
                 break
             elif check == 3:
-                turn2 == "p2"
+                turn2 == "dumbAI"
             else:
                 break
-            check2 = player2_play()
+            check2 = dumbAI_play()
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
                 break
             elif check2 == 3:
-                turn3 == "computer"
+                turn3 == "smartestAI"
             else:
                 break
-            check3 = computer_play()
+            check3 = smartestAI_play()
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
                 break
             elif check3 == 3:
-                turn3 == "computer"
-            # elif check1 or check2 or check3 == 2:
-            #     tie = tie +1
+                turn3 == "smartestAI"
             else:
                 break
-        # --------------- if player 1 will play first_p1, computer first_p2 and p2 first_computer ----------------------------------
-        if turn1 == 'p1' and turn2 == 'computer' and turn3 == 'p2':
-            check = player1_play()
+        #if smartAI will play first, smartestAI is second and dumbAI is third
+        if turn1 == 'smartAI' and turn2 == 'smartestAI' and turn3 == 'dumbAI':
+            check = smartAI_play()
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
                 break
             elif check == 3:
-                turn2 == "computer"
+                turn2 == "smartestAI"
             else:
                 break
-            check3 = computer_play()
+            check3 = smartestAI_play()
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
                 break
             elif check3 == 3:
-                turn3 == "p2"
+                turn3 == "dumbAI"
             else:
                 break
-            check2 = player2_play()
+            check2 = dumbAI_play()
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
                 break
             elif check2 == 3:
-                turn1 == "p1"
-            # elif check1 or check2 or check3 == 2:
-            #     tie = tie +1
+                turn1 == "smartAI"
             else:
                 break
-        # --------------- if player 2 will play first_p1, p1 first_p2 and computer first_computer ----------------------------------
-        if turn1 == 'p2' and turn2 == 'p1' and turn3 == 'computer':
-            check2 = player2_play()
+        #if dumbAI will play first smartAI is second and smartestAI is third
+        if turn1 == 'dumbAI' and turn2 == 'smartAI' and turn3 == 'smartestAI':
+            check2 = dumbAI_play()
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
                 break
             elif check2 == 3:
-                turn2 == "p1"
+                turn2 == "smartAI"
             else:
                 break
-            check = player1_play()
+            check = smartAI_play()
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
                 break
             elif check == 3:
-                turn1 == "p2"
+                turn1 == "dumbAI"
             else:
                 break
-            check3 = computer_play()
+            check3 = smartestAI_play()
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
                 break
             elif check3 == 3:
-                turn3 == "p2"
-            # elif check1 or check2 or check3 == 2:
-            #     tie = tie + 1
+                turn3 == "dumbAI"
             else:
                 break
-        # --------------- if player 2 will play first_p1, computer first_p2 and p1 first_computer ----------------------------------
-        if turn1 == 'p2' and turn2 == 'computer' and turn3 == 'p1':
-            check2 = player2_play()
+        #if dumbAI will play first, smartestAI is second and smartAI is last
+        if turn1 == 'dumbAI' and turn2 == 'smartestAI' and turn3 == 'smartAI':
+            check2 = dumbAI_play()
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
                 break
             elif check2 == 3:
-                turn2 == "computer"
+                turn2 == "smartestAI"
             else:
                 break
-            check3 = computer_play()
+            check3 = smartestAI_play()
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
                 break
             elif check3 == 3:
-                turn3 == "p1"
+                turn3 == "smartAI"
             else:
                 break
-            check = player1_play()
+            check = smartAI_play()
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
                 break
             elif check == 3:
-                turn1 == "p2"
-            # elif check1 or check2 or check3 == 2:
-            #     tie = tie +1
+                turn1 == "dumbAI"
             else:
                 break
-        # --------------- if computer will play first_p1, p2 first_p2 and p1 first_computer ----------------------------------
-        if turn1 == 'computer' and turn2 == 'p2' and turn3 == 'p1':
-            check3 = computer_play()
+        #if smartestAI will play first, dumbAI is second and smartAI goes third
+        if turn1 == 'smartestAI' and turn2 == 'dumbAI' and turn3 == 'smartAI':
+            check3 = smartestAI_play()
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
                 break
             elif check3 == 3:
-                turn2 == "p2"
+                turn2 == "dumbAI"
             else:
                 break
-            check2 = player2_play()
+            check2 = dumbAI_play()
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
                 break
             elif check2 == 3:
-                turn3 == "p1"
+                turn3 == "smartAI"
             else:
                 break
-            check1 = player1_play()
+            check1 = smartAI_play()
             if check1 == 1:
                 c1 = c1 + 1
                 continue_playing = False
                 break
             elif check1 == 3:
-                turn1 == "computer"
-            # elif check1 or check2 or check3 == 2:
-            #     tie = tie +1
+                turn1 == "smartestAI"
             else:
                 break
-        # --------------- if computer will play first_p1, p1 first_p2 and p2 first_computer ----------------------------------
-        if turn1 == 'computer' and turn2 == 'p1' and turn3 == 'p2':
-            check3 = computer_play()
+        #if smartestAI will play first, smartAI is second and dumbAI third
+        if turn1 == 'smartestAI' and turn2 == 'smartAI' and turn3 == 'dumbAI':
+            check3 = smartestAI_play()
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
                 break
             elif check3 == 3:
-                turn2 = "p1"
+                turn2 = "smartAI"
             else:
                 break
-            check = player1_play()
+            check = smartAI_play()
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
                 break
             elif check == 3:
-                turn3 == "p2"
+                turn3 == "dumbAI"
             else:
                 break
-            check2 = player2_play()
+            check2 = dumbAI_play()
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
                 break
             elif check2 == 3:
-                turn1 == "computer"
-            # elif check1 or check2 or check3 == 2:
-            #     tie = tie +1
+                turn1 == "smartestAI"
             else:
                 break
 print('*************************************************')
-print('Number of times p1 goes first',first_p1)
-print('Number of times p2 goes first',first_p2)
-print('Number of times computer goes first',first_computer)
+print('Number of times smartAI goes first',first_smartAI)
+print('Number of times dumbAI goes first',first_dumbAI)
+print('Number of times smartestAI goes first',first_smartestAI)
 print('*************************************************')
-print('Number of times p1 goes second',second_p1)
-print('Number of times p2 goes second',second_p2)
-print('Number of times computer goes second',second_computer)
+print('Number of times smartAI goes second',second_smartAI)
+print('Number of times dumbAI goes second',second_dumbAI)
+print('Number of times smartestAI goes second',second_smartestAI)
 print('*************************************************')
-print('Number of times p1 goes third',third_p1)
-print('Number of times p2 goes third',third_p2)
-print('Number of times computer goes third',third_computer)
+print('Number of times smartAI goes third',third_smartAI)
+print('Number of times dumbAI goes third',third_dumbAI)
+print('Number of times smartestAI goes third',third_smartestAI)
 print('*************************************************')
 
-print('Percentage of winning for Player 1', (c1 / ask_user) * 100)
-print('Percentage of winning for Player 2', (c2 / ask_user) * 100)
-print('Percentage of winning for Computer', (c3 / ask_user) * 100)
+print('Percentage of winning for smartAI', (c1 / ask_user) * 100)
+print('Percentage of winning for dumbAI', (c2 / ask_user) * 100)
+print('Percentage of winning for smartestAI', (c3 / ask_user) * 100)
 tie = (ask_user - (c1+c2+c3))
 print('Percentage of tie is', (tie / ask_user) * 100)
