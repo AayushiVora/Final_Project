@@ -49,7 +49,7 @@ def sequenceofplayers():
     :return: The random order in which the player goes in each game.
     """
 
-    c = random.randrange(0, 5)
+    c = random.randrange(0, 6)
     if c == 0:
         return ['smartestAI', 'smartAI', 'dumbAI']
     elif c == 1:
@@ -71,7 +71,7 @@ def select_sym_sequence():
     :return: The random order in which the symbols are assigned to each player.
     """
 
-    d = random.randrange(0, 5)
+    d = random.randrange(0, 6)
     if d == 0:
         return ['X', 'T', 'O']
     elif d == 1:
