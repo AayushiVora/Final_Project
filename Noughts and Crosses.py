@@ -1,4 +1,5 @@
 import random
+import numpy as np
 # def creategrid(position):
 #
 #     """This function will create the grid for the game
@@ -21,39 +22,22 @@ import random
 #     print('---------------')
 #     print(' ' + position[1] + ' | ' + position[2] + ' | ' + position[3] + ' | ' + position[4])
 
+def makepattern(coordinate,character):
+    # Given coordinate and the symbol used, this function returns True if the game is won by a particular player.
+    # Coordinate means the particular position on the grid and and character means O,X or T.
+    """Determine the game winner."""
+    WIN = [[ 14 ,  15 ,  16 ], [ 13 ,  14 ,  15 ] ,[ 10 ,  11 ,  12 ] ,[ 9 ,  10 ,  11 ] ,[ 6 ,  7 ,  8 ]  ,[ 5 ,  6 ,  7 ] ,
+    [ 2 ,  3 ,  4 ] ,[ 1 ,  2 ,  3 ], [ 13 ,  9 ,  5 ] ,[ 9 ,  5 ,  1 ],[ 14 ,  10 ,  6 ],[ 10 ,  6 ,  2 ],[ 15 ,  11 ,  7 ],[ 11 ,  7 ,  3 ],
+    [ 16 ,  12 ,  8 ],[ 12 ,  8 ,  4 ],[ 15 ,  10 ,  5 ],[ 16 ,  11 ,  6 ], [ 12 ,  7 ,  2 ], [ 13 ,  10 ,  7 ],[ 9 ,  6 ,  3 ], [ 14 ,  11 ,  8 ],[ 11 ,  6 ,  1 ],[ 10 ,  7 ,  4]]
+    k=0
+    for i in WIN:
+        if coordinate[i[0]] == character and coordinate[i[1]] == character and coordinate[i[2]] == character:
+            k = k+1
+    if k>0:
+        return True
+    else:
+        return False
 
-def makepattern(coordinate, character):
-
-    """This function determines the winning combination of the game.
-    :param coordinate: It identifies the coordinates from 1-16.
-    :param character: It identifies the symbol i.e 'X' , 'O', or 'T'.
-    :return: This returns True if the game is won by any player.
-    """
-
-    return ((coordinate[14] == character and coordinate[15] == character and coordinate[16] == character) or  # Horizontally at the top
-            (coordinate[13] == character and coordinate[14] == character and coordinate[15] == character) or  # Horizontally at the top
-            (coordinate[10] == character and coordinate[11] == character and coordinate[12] == character) or  # Horizontally at the top 2nd pane
-            (coordinate[9] == character and coordinate[10] == character and coordinate[11] == character) or  # Horizontally at the top 2nd pane
-            (coordinate[6] == character and coordinate[7] == character and coordinate[8] == character) or  # Horizontally at the top 3rd pane
-            (coordinate[5] == character and coordinate[6] == character and coordinate[7] == character) or  # Horizontally at the top 3rd pane
-            (coordinate[2] == character and coordinate[3] == character and coordinate[4] == character) or  # Horizontally at the coordinatettom pane
-            (coordinate[1] == character and coordinate[2] == character and coordinate[3] == character) or  # Horizontally at the coordinatettom pane
-            (coordinate[13] == character and coordinate[9] == character and coordinate[5] == character) or  # Vertically at the leftmost pane
-            (coordinate[9] == character and coordinate[5] == character and coordinate[1] == character) or  # Vertically at the leftmost pane
-            (coordinate[14] == character and coordinate[10] == character and coordinate[6] == character) or  # Vertically at the 2nd left pane
-            (coordinate[10] == character and coordinate[6] == character and coordinate[2] == character) or  # Vertically at the 2nd left pane
-            (coordinate[15] == character and coordinate[11] == character and coordinate[7] == character) or  # Vertically at the 3rd left pane
-            (coordinate[11] == character and coordinate[7] == character and coordinate[3] == character) or  # Vertically at the 3rd left pane
-            (coordinate[16] == character and coordinate[12] == character and coordinate[8] == character) or  # Vertically at the rightmost pane
-            (coordinate[12] == character and coordinate[8] == character and coordinate[4] == character) or  # Vertically at the rightmost pane
-            (coordinate[15] == character and coordinate[10] == character and coordinate[5] == character) or  # Diagonally
-            (coordinate[16] == character and coordinate[11] == character and coordinate[6] == character) or  # Diagonally
-            (coordinate[12] == character and coordinate[7] == character and coordinate[2] == character) or  # Diagonally
-            (coordinate[13] == character and coordinate[10] == character and coordinate[7] == character) or  # Diagonally
-            (coordinate[9] == character and coordinate[6] == character and coordinate[3] == character) or  # Diagonally
-            (coordinate[14] == character and coordinate[11] == character and coordinate[8] == character) or  # Diagonally
-            (coordinate[11] == character and coordinate[6] == character and coordinate[1] == character) or  # Diagonally
-            (coordinate[10] == character and coordinate[7] == character and coordinate[4] == character))  # Diagonally
 
 def sequenceofplayers():
 
@@ -213,13 +197,13 @@ def player1_play():
     move = smart_AI(theposition, computersymbol, playersymbol1, playersymbol2)
     theposition[move] = playersymbol1
     if makepattern(theposition, playersymbol1):
-        # creategrid(theposition)
+        #creategrid(theposition)
         print('We are sorry but our p1 has won the game!!')
         print('--------------------------------------------------------------')
         return 1
     else:
         if is_position_available(theposition):
-            # creategrid(theposition)
+            #creategrid(theposition)
             print('The game resulted in a tie.')
             print('--------------------------------------------------------------')
             return 2
@@ -261,13 +245,13 @@ def player2_play():
     move = dumb_AI(theposition, computersymbol, playersymbol1, playersymbol2)
     theposition[move] = playersymbol2
     if makepattern(theposition, playersymbol2):
-        # creategrid(theposition)
+        #creategrid(theposition)
         print('We are sorry but our p2 has won the game!!')
         print('--------------------------------------------------------------')
         return 1
     else:
         if is_position_available(theposition):
-            # creategrid(theposition)
+            #creategrid(theposition)
             print('The game resulted in a tie.')
             print('--------------------------------------------------------------')
             return 2
@@ -279,13 +263,13 @@ def computer_play():
     move = choosecompturn(theposition, computersymbol, playersymbol1, playersymbol2)
     theposition[move] = computersymbol
     if makepattern(theposition, computersymbol):
-        # creategrid(theposition)
+        #creategrid(theposition)
         print('We are sorry but our AI has won the game!!')
         print('--------------------------------------------------------------')
         return 1
     else:
         if is_position_available(theposition):
-            # creategrid(theposition)
+            #creategrid(theposition)
             print('The game resulted in a tie.')
             print('--------------------------------------------------------------')
             return 2
@@ -296,16 +280,41 @@ def computer_play():
 print('Welcome to a 4*4, a 3 Player Noughts and Crosses game.\n We have three AI in the game with some different strategy.\n To win the game, they have to place 3 X-s, O-s or 3 T-s in a row.')
 print('--------------------------------------------------------------')
 c1 = c2 = c3 = tie = 0
+first_p1 = first_p2 = first_computer = 0
+second_p1 = second_p2 = second_computer = 0
+third_p1 = third_p2 = third_computer = 0
 ask_user = input("How many times do you want to simulate the game?")
 ask_user = int(ask_user)
 print('--------------------------------------------------------------')
 for i in range(0, ask_user):
+
     # Reset the position
     theposition = [' '] * 17
     turn = sequenceofplayers()
     turn1 = turn[0]
     turn2 = turn[1]
     turn3 = turn[2]
+    if(turn1 == 'p1'):
+        first_p1 = first_p1+1
+    elif(turn1== 'p2'):
+        first_p2 = first_p2+1
+    else:
+        first_computer= first_computer+1
+
+    if(turn2 == 'p1'):
+        second_p1 = second_p1+1
+    elif(turn2== 'p2'):
+        second_p2 = second_p2+1
+    else:
+        second_computer= second_computer+1
+
+    if(turn3 == 'p1'):
+        third_p1 = third_p1+1
+    elif(turn3== 'p2'):
+        third_p2 = third_p2+1
+    else:
+        third_computer= third_computer+1
+
     print('Turn 1 is of: ', turn1,'Turn 2 is of:', turn2 ,'Turn 3 is of: ',turn3)
     playersymbol = select_sym_sequence()
     playersymbol1 = playersymbol[0]
@@ -314,7 +323,7 @@ for i in range(0, ask_user):
     print('The symbols for each player are: Player 1 is:', playersymbol1, ',Player 2 is:', playersymbol2, ',Computer is:',computersymbol)
     continue_playing = True
     while continue_playing:
-        # -------------------------- if player 1 is first, player 2 second, computer third -----------------------------------------------
+        # -------------------------- if player 1 is first_p1, player 2 first_p2, computer first_computer -----------------------------------------------
         if turn1 == 'p1' and turn2 == 'p2' and turn3 == 'computer':
             check = player1_play()
             if check == 1:
@@ -345,7 +354,7 @@ for i in range(0, ask_user):
             #     tie = tie +1
             else:
                 break
-        # --------------- if player 1 will play first, computer second and p2 third ----------------------------------
+        # --------------- if player 1 will play first_p1, computer first_p2 and p2 first_computer ----------------------------------
         if turn1 == 'p1' and turn2 == 'computer' and turn3 == 'p2':
             check = player1_play()
             if check == 1:
@@ -376,7 +385,7 @@ for i in range(0, ask_user):
             #     tie = tie +1
             else:
                 break
-        # --------------- if player 2 will play first, p1 second and computer third ----------------------------------
+        # --------------- if player 2 will play first_p1, p1 first_p2 and computer first_computer ----------------------------------
         if turn1 == 'p2' and turn2 == 'p1' and turn3 == 'computer':
             check2 = player2_play()
             if check2 == 1:
@@ -407,7 +416,7 @@ for i in range(0, ask_user):
             #     tie = tie + 1
             else:
                 break
-        # --------------- if player 2 will play first, computer second and p1 third ----------------------------------
+        # --------------- if player 2 will play first_p1, computer first_p2 and p1 first_computer ----------------------------------
         if turn1 == 'p2' and turn2 == 'computer' and turn3 == 'p1':
             check2 = player2_play()
             if check2 == 1:
@@ -438,7 +447,7 @@ for i in range(0, ask_user):
             #     tie = tie +1
             else:
                 break
-        # --------------- if computer will play first, p2 second and p1 third ----------------------------------
+        # --------------- if computer will play first_p1, p2 first_p2 and p1 first_computer ----------------------------------
         if turn1 == 'computer' and turn2 == 'p2' and turn3 == 'p1':
             check3 = computer_play()
             if check3 == 1:
@@ -469,7 +478,7 @@ for i in range(0, ask_user):
             #     tie = tie +1
             else:
                 break
-        # --------------- if computer will play first, p1 second and p2 third ----------------------------------
+        # --------------- if computer will play first_p1, p1 first_p2 and p2 first_computer ----------------------------------
         if turn1 == 'computer' and turn2 == 'p1' and turn3 == 'p2':
             check3 = computer_play()
             if check3 == 1:
@@ -500,6 +509,19 @@ for i in range(0, ask_user):
             #     tie = tie +1
             else:
                 break
+print('*************************************************')
+print('Number of times p1 goes first',first_p1)
+print('Number of times p2 goes first',first_p2)
+print('Number of times computer goes first',first_computer)
+print('*************************************************')
+print('Number of times p1 goes second',second_p1)
+print('Number of times p2 goes second',second_p2)
+print('Number of times computer goes second',second_computer)
+print('*************************************************')
+print('Number of times p1 goes third',third_p1)
+print('Number of times p2 goes third',third_p2)
+print('Number of times computer goes third',third_computer)
+print('*************************************************')
 
 print('Percentage of winning for Player 1', (c1 / ask_user) * 100)
 print('Percentage of winning for Player 2', (c2 / ask_user) * 100)
