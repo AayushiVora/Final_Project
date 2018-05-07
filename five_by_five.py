@@ -51,7 +51,7 @@ def sequenceofplayers():
     :return: The random order in which the player goes in each game.
     """
 
-    c = random.randrange(0, 5)
+    c = random.randrange(0, 6)
     if c == 0:
         return ['smartestAI', 'smartAI', 'dumbAI']
     elif c == 1:
@@ -73,7 +73,7 @@ def select_sym_sequence():
     :return: The random order in which the symbols are assigned to each player.
     """
 
-    d = random.randrange(0, 5)
+    d = random.randrange(0, 6)
     if d == 0:
         return ['X', 'T', 'O']
     elif d == 1:
@@ -172,7 +172,7 @@ def choose_smartestAI_turn(position, smartestAI_symbol, smartAI_symbol, dumbAI_s
     move = chooseRandomMoveFromList(position, [1,5,21,25])
     if move != None:
         return move
-    return chooseRandomMoveFromList(position, [2, 3, 4,6,10,11,15,10,20,22,23,24])
+    return chooseRandomMoveFromList(position, [2,3,4,6,10,11,15,16,20,22,23,24])
 
 
 def is_position_available(position):
@@ -210,7 +210,7 @@ def smart_AI(position, smartestAI_symbol, smartAI_symbol):
     if move != None:
         return move
 
-    return chooseRandomMoveFromList(position, [2, 3, 4,6,10,11,15,10,20,22,23,24])
+    return chooseRandomMoveFromList(position, [2,3,4,6,10,11,15,16,20,22,23,24])
 
 
 def smartAI_play():
@@ -245,7 +245,6 @@ def dumb_AI(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
    :param dumbAI_symbol: It is the dumb AI's symbol.
    :return: It will return the next move for the dumb AI.
    """
-
     check_against_players(position,smartestAI_symbol)
     check_against_players(position,smartAI_symbol)
     check_own_winning(position,dumbAI_symbol)
@@ -255,7 +254,7 @@ def dumb_AI(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
     m_centre = chooseRandomMoveFromList(position, [7,8,9,12,13,14,17,18,19])
     if m_centre != None:
         return m_centre
-    return chooseRandomMoveFromList(position, [2, 3, 4,6,10,11,15,10,20,22,23,24])
+    return chooseRandomMoveFromList(position, [2,3,4,6,10,11,15,16,20,22,23,24])
 
 
 def dumbAI_play():
@@ -370,7 +369,7 @@ if __name__ == '__main__':
                     first_smartestAI=first_smartestAI+1
                     break
                 elif check3 == 3:
-                    turn3 == "smartestAI"
+                    turn1 == "smartAI"
                 else:
                     break
             #if smartAI will play first, smartestAI is second and dumbAI is third
@@ -424,7 +423,7 @@ if __name__ == '__main__':
                     third_smartAI=third_smartAI+1
                     break
                 elif check == 3:
-                    turn1 == "dumbAI"
+                    turn3 == "smartestAI"
                 else:
                     break
                 check3 = smartestAI_play()
@@ -434,7 +433,7 @@ if __name__ == '__main__':
                     third_smartestAI=third_smartestAI+1
                     break
                 elif check3 == 3:
-                    turn3 == "dumbAI"
+                    turn1 == "dumbAI"
                 else:
                     break
             #if dumbAI will play first, smartestAI is second and smartAI is last
@@ -510,7 +509,7 @@ if __name__ == '__main__':
                     sixth_smartestAI=sixth_smartestAI+1
                     break
                 elif check3 == 3:
-                    turn2 = "smartAI"
+                    turn2 == "smartAI"
                 else:
                     break
                 check = smartAI_play()
