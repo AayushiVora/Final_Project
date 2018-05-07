@@ -1,4 +1,6 @@
 import random
+
+
 # def creategrid(position):
 #
 #     """This function will create the grid for the game
@@ -20,10 +22,18 @@ import random
 #     print('---------------')
 #     print(' ' + position[1] + ' | ' + position[2] + ' | ' + position[3] + ' | ' + position[4])
 
+# """" Adding doctests
+# >>> test_list = [' '] * 17
+# >>> test_list[12] = test_list[8] = test_list[4] = 'X'
+# >>> makepattern(test_list,'X')
+# 'True'
+# """
+
 def makepattern(coordinate,character):
+
     # Given coordinate and the symbol used, this function returns True if the game is won by a particular player.
     # Coordinate means the particular position on the grid and and character means O,X or T.
-    """Determine the game winner."""
+
     WIN = [[ 14,15,16 ],[13,14,15 ],[ 10,11,12 ],[ 9,10,11 ],[ 6,7,8 ],[ 5,6,7 ],[ 2,3,4] ,[1,2,3 ],[13,9,5] ,[ 9,5,1 ],[14,10,6 ],[10,6,2],[15,11,7],[11,7,3],
     [16,12,8 ],[12,8,4],[15,10,5],[16,11,6],[12,7,2 ],[13,10,7 ],[ 9,6,3],[14,11,8],[11,6,1],[10,7,4]]
     k=0
@@ -115,32 +125,27 @@ def chooseRandomMoveFromList(position, movesList):
     else:
         return None
 
-
-def choose_smartestAI_turn(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
-
-    # Selecting position for next move for the smartest AI 1.
-    for i in range(1, 17):
-        copy = newposition(position)
-        if position_avail(copy, i):
-            # makeMove(copy, smartestAI_symbol, i)
-            copy[i] = smartestAI_symbol
-            if makepattern(copy, smartestAI_symbol):
-                return i
-
-    # Check if the other AI's could win on their next move, and block them.
+def check_against_players(position,symbol):
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
             copy[i] = smartAI_symbol
-            if makepattern(copy, smartAI_symbol):
+            if makepattern(copy, symbol):
                 return i
+
+def check_own_winning(position,symbol):
     for i in range(1, 17):
         copy = newposition(position)
         if position_avail(copy, i):
-            copy[i] = dumbAI_symbol
-            if makepattern(copy, dumbAI_symbol):
+            # makeMove(copy, smartestAI_symbol, i)
+            copy[i] = symbol
+            if makepattern(copy, symbol):
                 return i
 
+def choose_smartestAI_turn(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
+    check_own_winning(position,smartestAI_symbol)
+    check_against_players(position,smartAI_symbol)
+    check_against_players(position,dumbAI_symbol)
     m_centre = chooseRandomMoveFromList(position, [6, 7, 10, 11])
     if m_centre != None:
         return m_centre
@@ -164,21 +169,8 @@ def is_position_available(position):
 
 
 def smart_AI(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
-    # Selecting position for next move for its own
-    for i in range(1, 17):
-        copy = newposition(position)
-        if position_avail(copy, i):
-            copy[i] = smartAI_symbol
-            if makepattern(copy, smartAI_symbol):
-                return i
-
-    for i in range(1, 17):
-        copy = newposition(position)
-        if position_avail(copy, i):
-            # makeMove(copy, smartestAI_symbol, i)
-            copy[i] = smartestAI_symbol
-            if makepattern(copy, smartestAI_symbol):
-                return i
+    check_own_winning(position,smartestAI_symbol)
+    check_against_players(position,smartestAI_symbol)
     m_centre = chooseRandomMoveFromList(position, [6, 7, 10, 11])
     if m_centre != None:
         return m_centre
@@ -209,26 +201,9 @@ def smartAI_play():
 
 
 def dumb_AI(position, smartestAI_symbol, smartAI_symbol, dumbAI_symbol):
-    # Check if other player could win on their next move, and block them.
-    for i in range(1, 17):
-        copy = newposition(position)
-        if position_avail(copy, i):
-            copy[i] = smartAI_symbol
-            if makepattern(copy, smartAI_symbol):
-                return i
-    for i in range(1, 17):
-        copy = newposition(position)
-        if position_avail(copy, i):
-            copy[i] = smartestAI_symbol
-            if makepattern(copy, smartestAI_symbol):
-                return i
-    for i in range(1, 17):
-        copy = newposition(position)
-        if position_avail(copy, i):
-            # makeMove(copy, smartestAI_symbol, i)
-            if makepattern(copy, dumbAI_symbol):
-                return i
-
+    check_against_players(position,smartestAI_symbol)
+    check_against_players(position,smartestAI_symbol)
+    check_own_winning(position,dumbAI_symbol)
     move = chooseRandomMoveFromList(position, [1, 4, 13, 16])
     if move != None:
         return move
@@ -277,9 +252,15 @@ def smartestAI_play():
 print('Welcome to a 4*4, a 3 Player Noughts and Crosses game.\n We have three AI in the game with some different strategy.\n To win the game, they have to place 3 X-s, O-s or 3 T-s in a row.')
 print('--------------------------------------------------------------')
 c1 = c2 = c3 = tie = 0
+count_smartAI = count_dumbAI = count_smartestAI = 0
 first_smartAI = first_dumbAI = first_smartestAI = 0
 second_smartAI = second_dumbAI = second_smartestAI = 0
 third_smartAI = third_dumbAI = third_smartestAI = 0
+fourth_smartAI = fourth_dumbAI = fourth_smartestAI = 0
+fifth_smartAI = fifth_dumbAI = fifth_smartestAI = 0
+sixth_smartAI = sixth_dumbAI = sixth_smartestAI = 0
+
+
 ask_user = input("How many times do you want to simulate the game?")
 ask_user = int(ask_user)
 print('--------------------------------------------------------------')
@@ -292,26 +273,11 @@ for i in range(0, ask_user):
     turn2 = turn[1]
     turn3 = turn[2]
     if(turn1 == 'smartAI'):
-        first_smartAI = first_smartAI+1
+        count_smartAI = count_smartAI+1
     elif(turn1== 'dumbAI'):
-        first_dumbAI = first_dumbAI+1
+        count_dumbAI = count_dumbAI+1
     else:
-        first_smartestAI= first_smartestAI+1
-
-    if(turn2 == 'smartAI'):
-        second_smartAI = second_smartAI+1
-    elif(turn2== 'dumbAI'):
-        second_dumbAI = second_dumbAI+1
-    else:
-        second_smartestAI= second_smartestAI+1
-
-    if(turn3 == 'smartAI'):
-        third_smartAI = third_smartAI+1
-    elif(turn3== 'dumbAI'):
-        third_dumbAI = third_dumbAI+1
-    else:
-        third_smartestAI= third_smartestAI+1
-
+        count_smartestAI= count_smartestAI+1
     print('Turn 1 is of: ', turn1,'Turn 2 is of:', turn2 ,'Turn 3 is of: ',turn3)
     playersymbol = select_sym_sequence()
     smartAI_symbol = playersymbol[0]
@@ -326,6 +292,7 @@ for i in range(0, ask_user):
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
+                first_smartAI = first_smartAI+1
                 break
             elif check == 3:
                 turn2 == "dumbAI"
@@ -335,6 +302,7 @@ for i in range(0, ask_user):
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
+                first_dumbAI=first_dumbAI+1
                 break
             elif check2 == 3:
                 turn3 == "smartestAI"
@@ -344,6 +312,7 @@ for i in range(0, ask_user):
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
+                first_smartestAI=first_smartestAI+1
                 break
             elif check3 == 3:
                 turn3 == "smartestAI"
@@ -355,6 +324,7 @@ for i in range(0, ask_user):
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
+                second_smartAI=second_smartAI+1
                 break
             elif check == 3:
                 turn2 == "smartestAI"
@@ -364,6 +334,7 @@ for i in range(0, ask_user):
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
+                second_smartestAI = second_smartestAI+1
                 break
             elif check3 == 3:
                 turn3 == "dumbAI"
@@ -373,6 +344,7 @@ for i in range(0, ask_user):
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
+                second_dumbAI=second_dumbAI+1
                 break
             elif check2 == 3:
                 turn1 == "smartAI"
@@ -384,6 +356,7 @@ for i in range(0, ask_user):
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
+                third_dumbAI=third_dumbAI+1
                 break
             elif check2 == 3:
                 turn2 == "smartAI"
@@ -393,6 +366,7 @@ for i in range(0, ask_user):
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
+                third_smartAI=third_smartAI+1
                 break
             elif check == 3:
                 turn1 == "dumbAI"
@@ -402,6 +376,7 @@ for i in range(0, ask_user):
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
+                third_smartestAI=third_smartestAI+1
                 break
             elif check3 == 3:
                 turn3 == "dumbAI"
@@ -413,6 +388,7 @@ for i in range(0, ask_user):
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
+                fourth_dumbAI=fourth_dumbAI+1
                 break
             elif check2 == 3:
                 turn2 == "smartestAI"
@@ -422,6 +398,7 @@ for i in range(0, ask_user):
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
+                fourth_smartestAI=fourth_smartestAI+1
                 break
             elif check3 == 3:
                 turn3 == "smartAI"
@@ -431,6 +408,7 @@ for i in range(0, ask_user):
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
+                fourth_smartAI=fourth_smartAI+1
                 break
             elif check == 3:
                 turn1 == "dumbAI"
@@ -442,6 +420,7 @@ for i in range(0, ask_user):
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
+                fifth_smartestAI=fifth_smartestAI+1
                 break
             elif check3 == 3:
                 turn2 == "dumbAI"
@@ -451,6 +430,7 @@ for i in range(0, ask_user):
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
+                fifth_dumbAI=fifth_dumbAI+1
                 break
             elif check2 == 3:
                 turn3 == "smartAI"
@@ -460,6 +440,7 @@ for i in range(0, ask_user):
             if check1 == 1:
                 c1 = c1 + 1
                 continue_playing = False
+                fifth_smartAI=fifth_smartAI+1
                 break
             elif check1 == 3:
                 turn1 == "smartestAI"
@@ -471,6 +452,7 @@ for i in range(0, ask_user):
             if check3 == 1:
                 c3 = c3 + 1
                 continue_playing = False
+                sixth_smartestAI=sixth_smartestAI+1
                 break
             elif check3 == 3:
                 turn2 = "smartAI"
@@ -480,6 +462,7 @@ for i in range(0, ask_user):
             if check == 1:
                 c1 = c1 + 1
                 continue_playing = False
+                sixth_smartAI=sixth_smartAI+1
                 break
             elif check == 3:
                 turn3 == "dumbAI"
@@ -489,23 +472,46 @@ for i in range(0, ask_user):
             if check2 == 1:
                 c2 = c2 + 1
                 continue_playing = False
+                sixth_dumbAI=sixth_dumbAI+1
                 break
             elif check2 == 3:
                 turn1 == "smartestAI"
             else:
                 break
 print('*************************************************')
-print('Number of times smartAI goes first',first_smartAI)
-print('Number of times dumbAI goes first',first_dumbAI)
-print('Number of times smartestAI goes first',first_smartestAI)
+print('Number of times smartAI goes first',count_smartAI)
+print('Number of times dumbAI goes first',count_dumbAI)
+print('Number of times smartestAI goes first',count_smartestAI)
 print('*************************************************')
-print('Number of times smartAI goes second',second_smartAI)
-print('Number of times dumbAI goes second',second_dumbAI)
-print('Number of times smartestAI goes second',second_smartestAI)
+print('if smartAI is first, dumbAI is second,  and smartestAI is third')
+print('Number of times smartAI wins',first_smartAI)
+print('Number of times dumbAI wins',first_dumbAI)
+print('Number of times smartestAI wins',first_smartestAI)
 print('*************************************************')
-print('Number of times smartAI goes third',third_smartAI)
-print('Number of times dumbAI goes third',third_dumbAI)
-print('Number of times smartestAI goes third',third_smartestAI)
+print('if smartAI will play first, smartestAI is second and dumbAI is third')
+print('Number of times smartAI wins',second_smartAI)
+print('Number of times dumbAI wins',second_dumbAI)
+print('Number of times smartestAI wins',second_smartestAI)
+print('*************************************************')
+print('if dumbAI will play first smartAI is second and smartestAI is third')
+print('Number of times smartAI wins',third_smartAI)
+print('Number of times dumbAI wins',third_dumbAI)
+print('Number of times smartestAI wins',third_smartestAI)
+print('*************************************************')
+print('if dumbAI will play first, smartestAI is second and smartAI is last')
+print('Number of times smartAI wins',fourth_smartAI)
+print('Number of times dumbAI wins',fourth_dumbAI)
+print('Number of times smartestAI wins',fourth_smartestAI)
+print('*************************************************')
+print('if smartestAI will play first, dumbAI is second and smartAI goes third')
+print('Number of times smartAI wins',fifth_smartAI)
+print('Number of times dumbAI wins',fifth_dumbAI)
+print('Number of times smartestAI wins',fifth_smartestAI)
+print('*************************************************')
+print('if smartestAI will play first, smartAI is second and dumbAI third')
+print('Number of times smartAI wins',sixth_smartAI)
+print('Number of times dumbAI wins',sixth_dumbAI)
+print('Number of times smartestAI wins',sixth_smartestAI)
 print('*************************************************')
 
 print('Percentage of winning for smartAI', (c1 / ask_user) * 100)
