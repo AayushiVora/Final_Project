@@ -7,6 +7,11 @@ Noughts and Crosses
 Aayushi Vora
 Saloni Agrawal
 
+**About the code files**
+We have added 2 files named
+1. Noughts and Crosses.py which contains 4 by 4 tic tac toe code.
+2. five_by_five.py which contains 5 by 5 tic tac toe code.
+
 **Introduction:**
 
 Everyone is familiar with the game Noughts and Crosses. We have created a level one Artificial Intelligence Algorithm to determine the best possible moves which could lead to a possible victory. The main focus of our project is to create 3 Aritficial Intelligence Player's with different alogirthms and then to determine that weather the sequence in which the AI's play the game has any impact on winning porabilities of each of them.  We'll be giving a new variation to this game, where the grid will be of 4 by 4 and 5 by 5. However, the number of players will be 3 and the first player to get 3 in a row will win the game.
@@ -116,6 +121,7 @@ However,after simulating the game n number of times, where n depends on the user
 
 **Conclusions**
 After the peer reviews,  we  refined our hypothesis as "The winning probability is independent of the order in which the players go". To test our hypothesis we applied Monte Carlo Simulation in this game. We ran our simulation n number of times(n=1000 in our case. However, once can input this value of n), and obsererved the winning possibilities of each player under each play-order combination of players is different. Hence, we came to a conclusion that winning the game is independent of the order in which you play. 
+We have also added doctests for both the python files.
 
 ****Note***: 'play-order combination of players' means the combinations of order in which players will play. For instance, 
 - Combination 1: smartAI, smartestAI, dumbAI
